@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sample Museum Website</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            min-height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            background-color: #FF9933;
+        }
+
+        nav a {
+            color: white;
+            padding: 14px 20px;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        nav a:hover {
+            background-color:#FF9933;
+            color: black;
+        }
+
+        .container {
+            padding: 20px;
+            flex: 1; /* This allows the container to expand */
+        }
+
+        .about-section {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border: 5px solid; /* Indian tri-color border */
+            border-image: linear-gradient(to right, #FF9933, #FFFFFF, #138808) 1;
+        }
+
+        .about-section h2 {
+            color: #333;
+        }
+
+        .about-section p {
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .image-gallery {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+
+        .image-gallery img {
+            width: 32%;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        footer {
+            background-color: #FF9933;
+            color: white;
+            text-align: center;
+            padding: 10px;
+        }
+/* Chatbot Button Styling */
+#chatbot-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 60px;
+    height: 60px;
+    background-color: #ff8c00;
+    border-radius: 50%;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
+
+#chatbot-button:hover {
+    background-color: #ffa500;
+}
+
+/* Chatbot Container Styling */
+#chatbot-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    width: 300px;
+    display: none; /* Initially hidden, can be toggled with JavaScript */
+}
+
+#chatbot-header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+#chatbot-conversation {
+    padding: 10px;
+}
+
+#chatbot-messages {
+    padding: 10px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#user-input {
+    width: calc(100% - 110px);
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+#send-button {
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>The National Gallery of Modern Art</h1>
+</header>
+
+<nav>
+    <a href="about1.html">About</a>
+    <a href="mapart.html">Map&Time</a>
+</nav>
+
+<div class="image-gallery">
+    <img src="art1.jpeg" alt="Artwork 1">
+    <img src="art2.jpeg" alt="Artwork 2">
+    <img src="art3.jpeg" alt="Artwork 3">
+</div>
+
+<div class="container">
+    <div class="about-section">
+        <h2>Highlights</h2>
+        <p>
+            The National Gallery of Modern Art in Delhi, India has a collection of more than 14,000 artworks, including works that are over 150 years old.
+        </p>
+        <p>
+            The gallery showcases the work of many artists, including Thomas Daniell, Abanindranath Tagore, Raja Ravi Verma, Gaganendranath Tagore, Rabindranath Tagore, and Nandalal Bose.
+        </p>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2024 National Museum of Art. All rights reserved.</p>
+</footer>
+<!-- Chatbot Container -->
+    <div id="chatbot-container">
+        <div id="chatbot-header">
+            <h2>Chat with me</h2>
+        </div>
+        <div id="chatbot-conversation">
+            <div id="chatbot-messages">
+                <!-- chatbot messages will be displayed here -->
+            </div>
+            <input id="user-input" type="text" placeholder="Type your question...">
+            <button id="send-button">Send</button>
+        </div>
+    </div>
+
+    <!-- Chatbot Button -->
+    <div id="chatbot-button">
+        Chat with me
+    </div>
+
+    <!-- Include JavaScript -->
+    <script src="art.js"></script>
+
+</body>
+</html>
+

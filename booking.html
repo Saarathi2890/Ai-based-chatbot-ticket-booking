@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ticket Booking Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+        .form-container, .result-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .form-group button {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .form-group button:hover {
+            background-color: #0056b3;
+        }
+        .hidden {
+            display: none;
+        }
+        .qr-code-container {
+            text-align: center;
+        }
+        .qr-code-container img {
+            width: 100%;
+            max-width: 300px;
+            height: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container" id="formPage">
+        <h2>Booking Form</h2>
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" name="phone" required>
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" id="date" name="date" required>
+        </div>
+        <div class="form-group">
+            <label for="time">Timing:</label>
+            <input type="time" id="time" name="time" required>
+        </div>
+        <div class="form-group">
+            <label for="adults">Number of Adult Tickets:</label>
+            <input type="number" id="adults" name="adults" min="0" required onchange="generateIDFields()">
+        </div>
+        <div class="form-group">
+            <label for="children">Number of Child Tickets:</label>
+            <input type="number" id="children" name="children" min="0" required onchange="generateIDFields()">
+        </div>
+
+        <!-- Container for dynamically added ID fields -->
+        <div id="idFieldsContainer"></div>
+
+        <div class="form-group">
+            <button type="button" onclick="calculatePrice()">Submit</button>
+        </div>
+    </div>
+
+    <!-- Hidden container for showing result -->
+    <div class="result-container hidden" id="resultPage">
+        <h2>Booking Summary</h2>
+        <p id="summaryText"></p>
+        <div class="qr-code-container">
+            <h3>Pay with Google Pay</h3>
+            <!-- QR code image for Google Pay -->
+            <img src="gpay.jpg" alt="Google Pay QR Code">
+            <p>Scan the QR code to pay. Once the payment is successful, you will see your ticket details below.</p>
+        </div>
+    </div>
+
+    <script>
+        function generateIDFields() {
+            const numAdults = parseInt(document.getElementById('adults').value) || 0;
+            const numChildren = parseInt(document.getElementById('children').value) || 0;
+
+            const container = document.getElementById('idFieldsContainer');
+            container.innerHTML = '';
+
+            let totalTickets = numAdults + numChildren;
+
+            for (let i = 1; i <= totalTickets; i++) {
+                const ticketSection = document.createElement('div');
+                ticketSection.className = 'form-group';
+                ticketSection.innerHTML = `
+                    <h4>Ticket ${i} Details</h4>
+                    <label for="id_type_${i}">ID Type (Aadhaar or PAN):</label>
+                    <select id="id_type_${i}" name="id_type_${i}" required>
+                        <option value="">Select ID Type</option>
+                        <option value="aadhaar">Aadhaar</option>
+                        <option value="pan">PAN</option>
+                    </select>
+
+                    <label for="id_number_${i}">ID Number:</label>
+                    <input type="text" id="id_number_${i}" name="id_number_${i}" required>
+
+                    <label for="id_photo_${i}">Upload ID Photo:</label>
+                    <input type="file" id="id_photo_${i}" name="id_photo_${i}" accept="image/*" required>
+                `;
+                container.appendChild(ticketSection);
+            }
+        }
+
+        function calculatePrice() {
+            const numAdults = parseInt(document.getElementById('adults').value) || 0;
+            const numChildren = parseInt(document.getElementById('children').value) || 0;
+            
+            const adultPrice = 100;
+            const childPrice = 70;
+
+            const totalPrice = (numAdults * adultPrice) + (numChildren * childPrice);
+
+            // Hide the form page and show the result page
+            document.getElementById('formPage').classList.add('hidden');
+            document.getElementById('resultPage').classList.remove('hidden');
+
+            // Display the booking summary
+            document.getElementById('summaryText').innerText = `
+                Number of Adult Tickets: ${numAdults}\n
+                Number of Child Tickets: ${numChildren}\n
+                Total Price: ₹${totalPrice}
+            `;
+
+            // Generate the QR code dynamically if needed
+            // This can be replaced with actual QR code generation for Google Pay
+            // Example: const qrCodeImageUrl = `https://example.com/qr?amount=${totalPrice}`;
+            // document.querySelector('.qr-code-container img').src = qrCodeImageUrl;
+        }
+
+        // This function should handle post-payment actions
+        // For simplicity, it's not implemented here
+    </script>
+</body>
+</html>
